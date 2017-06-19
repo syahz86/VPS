@@ -297,4 +297,4 @@ echo "Please type sh userlogin.sh port to check login user"
 echo "Please type usernew for new user"
 echo "Please type sh autoexpire.sh to run script and cat expireduser.txt for expired list"
 
-echo "==============================================="
+echo "================================================"
