@@ -56,16 +56,15 @@ rm -f *.rpm
 # remove unused
 yum -y remove sendmail;
 yum -y remove httpd;
-yum -y remove cyrus-sasl;
-yum -y remove samba
+yum -y remove cyrus-sasl
 
 # update
 yum -y update
 
 # install webserver
 yum -y install nginx php-fpm php-cli
-service nginx restart
-service php-fpm restart
+service nginx start
+service php-fpm start
 chkconfig nginx on
 chkconfig php-fpm on
 
@@ -73,18 +72,16 @@ chkconfig php-fpm on
 yum -y install rrdtool screen iftop htop nmap bc nethogs openvpn vnstat ngrep mtr git zsh mrtg unrar rsyslog rkhunter mrtg net-snmp net-snmp-utils expect nano bind-utils
 yum -y groupinstall 'Development Tools'
 yum -y install cmake
-
 yum -y --enablerepo=rpmforge install axel sslh ptunnel unrar
 
-# matiin exim
+# disable exim
 service exim stop
 chkconfig exim off
 
 # setting vnstat
-vnstat -u -i $ether
+vnstat -u -i eth0
 echo "MAILTO=root" > /etc/cron.d/vnstat
 echo "*/5 * * * * root /usr/sbin/vnstat.cron" >> /etc/cron.d/vnstat
-sed -i "s/eth0/$ether/" /etc/sysconfig/vnstat
 service vnstat restart
 chkconfig vnstat on
 
