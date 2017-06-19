@@ -68,7 +68,7 @@
  bash speedtest.sh
  ```
 
-# Custom Debian 7 64-bit Webmin
+# Custom Debian 7 64-bit Webmin with Menu
 ```
  wget https://raw.githubusercontent.com/syahz86/VPS/master/CustomDebian-kvm.sh
 ```
@@ -76,13 +76,13 @@
 ```
  bash CustomDebian-kvm.sh
 ```
-# Custom Centos 6 64-bit Webmin
+# Custom Centos 6 64-bit Webmin with Menu
 ```
-wget https://raw.githubusercontent.com/syahz86/VPS/master/CentosCustom-kvm.sh
+wget https://raw.githubusercontent.com/syahz86/VPS/master/CustomCentos-kvm.sh
 ```
 - kemudian paste nie dan tunggu sehingga selesai
 ```
- bash CentosCustom-kvm.sh
+ bash CustomCentos-kvm.sh
 ```
 
 # EasyAdd Usernew Centos
