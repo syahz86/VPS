@@ -13,6 +13,9 @@ MYIP2="s/xxxxxxxxx/$MYIP/g";
 # go to root
 cd
 
+# set time GMT +8
+ln -fs /usr/share/zoneinfo/Asia/Malaysia /etc/localtime
+
 #DISABLE SELINUX START
 echo -n "Disable selinux..."
 setenforce 0
@@ -38,10 +41,23 @@ wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 rpm -Uvh epel-release-6-8.noarch.rpm
 rpm -Uvh remi-release-6.rpm
 
+if [ "$OS" == "x86_64" ]; then
+  wget http://repository.it4i.cz/mirrors/repoforge/redhat/el6/en/x86_64/rpmforge/RPMS/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
+  rpm -Uvh rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
+else
+  wget http://ftp.tu-chemnitz.de/pub/linux/dag/redhat/el6/en/i386/rpmforge/RPMS/rpmforge-release-0.5.3-1.el6.rf.i686.rpm
+  rpm -Uvh rpmforge-release-0.5.3-1.el6.rf.i686.rpm
+fi
+
+sed -i 's/enabled = 1/enabled = 0/g' /etc/yum.repos.d/rpmforge.repo
+sed -i -e "/^\[remi\]/,/^\[.*\]/ s|^\(enabled[ \t]*=[ \t]*0\\)|enabled=1|" /etc/yum.repos.d/remi.repo
+rm -f *.rpm
+
 # remove unused
 yum -y remove sendmail;
 yum -y remove httpd;
-yum -y remove cyrus-sasl
+yum -y remove cyrus-sasl;
+yum -y remove samba
 
 # update
 yum -y update
@@ -54,19 +70,21 @@ chkconfig nginx on
 chkconfig php-fpm on
 
 # install essential package
-yum -y install openvpn vnstat git nano
+yum -y install rrdtool screen iftop htop nmap bc nethogs openvpn vnstat ngrep mtr git zsh mrtg unrar rsyslog rkhunter mrtg net-snmp net-snmp-utils expect nano bind-utils
 yum -y groupinstall 'Development Tools'
 yum -y install cmake
 
+yum -y --enablerepo=rpmforge install axel sslh ptunnel unrar
 
-# exim off
+# matiin exim
 service exim stop
 chkconfig exim off
 
 # setting vnstat
-vnstat -u -i eth0
+vnstat -u -i $ether
 echo "MAILTO=root" > /etc/cron.d/vnstat
 echo "*/5 * * * * root /usr/sbin/vnstat.cron" >> /etc/cron.d/vnstat
+sed -i "s/eth0/$ether/" /etc/sysconfig/vnstat
 service vnstat restart
 chkconfig vnstat on
 
@@ -93,14 +111,14 @@ service php-fpm restart
 service nginx restart
 
 # install openvpn
-wget -O /etc/openvpn/openvpn.zip "https://raw.githubusercontent.com/gidhanbagus/scriptasu/master/conf/openvpn-key.zip"
+wget -O /etc/openvpn/openvpn.zip "https://raw.githubusercontent.com/syahz86/VPS/master/conf/openvpn-key.zip"
 cd /etc/openvpn/
 unzip openvpn.zip
-wget -O /etc/openvpn/80.conf "https://raw.githubusercontent.com/gidhanbagus/scriptasu/master/conf/80-centos.conf"
+wget -O /etc/openvpn/80.conf "https://raw.githubusercontent.com/syahz86/VPS/master/conf/80-centos.conf"
 if [ "$OS" == "x86_64" ]; then
-  wget -O /etc/openvpn/80.conf "https://raw.githubusercontent.com/gidhanbagus/scriptasu/master/conf/80-centos64.conf"
+  wget -O /etc/openvpn/80.conf "https://raw.githubusercontent.com/syahz86/VPS/master/conf/80-centos64.conf"
 fi
-wget -O /etc/iptables.up.rules "https://raw.githubusercontent.com/gidhanbagus/scriptasu/master/conf/iptables.up.rules"
+wget -O /etc/iptables.up.rules "https://raw.githubusercontent.com/syahz86/VPS/master/conf/iptables.up.rules"
 sed -i '$ i\iptables-restore < /etc/iptables.up.rules' /etc/rc.local
 sed -i '$ i\iptables-restore < /etc/iptables.up.rules' /etc/rc.d/rc.local
 MYIP=`curl icanhazip.com`;
@@ -116,12 +134,12 @@ cd
 
 # configure openvpn client config
 cd /etc/openvpn/
-wget -O /etc/openvpn/client.ovpn "https://raw.githubusercontent.com/gidhanbagus/scriptasu/master/openvpn.conf"
+wget -O /etc/openvpn/client.ovpn "https://raw.githubusercontent.com/syahz86/VPS/master/conf/openvpn.conf"
 sed -i $MYIP2 /etc/openvpn/client.ovpn;
 useradd -g 0 -d /root/ -s /bin/bash $dname
-echo $dname:"sarkem123" | chpasswd
+echo $dname:"test1" | chpasswd
 echo $dname > pass.txt
-echo "sarkem123" >> pass.txt
+echo "test1" >> pass.txt
 tar cf client.tar client.ovpn pass.txt
 cp client.tar /home/vps/public_html/
 cp client.ovpn /home/vps/public_html/
@@ -282,9 +300,6 @@ iptables -A INPUT -p tcp --dport 25 -j REJECT
 iptables -A FORWARD -p tcp --dport 25 -j REJECT 
 iptables -A OUTPUT -p tcp --dport 25 -j REJECT 
 iptables-save
-
-# set time GMT +8
-ln -fs /usr/share/zoneinfo/Asia/Malaysia /etc/localtime
 
 # Restart Service
 chown -R nginx:nginx /home/vps/public_html
