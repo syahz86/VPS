@@ -76,6 +76,8 @@
 ```
  bash CustomDebian-kvm.sh
 ```
+- Jika ada tambahan package accept (yum/y)
+
 # Custom Centos 6 64-bit Webmin with Menu
 ```
 wget https://raw.githubusercontent.com/syahz86/VPS/master/CustomCentos-kvm.sh
