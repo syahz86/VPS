@@ -86,6 +86,7 @@ wget https://raw.githubusercontent.com/syahz86/VPS/master/CustomCentos-kvm.sh
 ```
  bash CustomCentos-kvm.sh
 ```
+- Jika ada tambahan package sila accept (yum/y)
 
 # EasyAdd Usernew Centos
 ```
