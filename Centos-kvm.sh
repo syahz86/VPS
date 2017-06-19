@@ -193,6 +193,7 @@ chmod +x /usr/bin/usernew
 cd
 wget https://raw.githubusercontent.com/syahz86/VPN/master/conf/autoexpire.sh
 chmod +x autoexpire.sh
+sh autoexpire.sh
 
 #bonus block playstation
 iptables -A OUTPUT -d account.sonyentertainmentnetwork.com -j DROP
@@ -295,6 +296,6 @@ echo "Torrent Block :[on]"
 echo "Playstation Block :[on]" 
 echo "Please type sh userlogin.sh port to check login user"
 echo "Please type usernew for new user"
-echo "Please type sh autoexpire.sh to run script and cat expireduser.txt for expired list"
+echo "Please type cat expireduser.txt for expired list"
 
 echo "================================================"
