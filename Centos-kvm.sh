@@ -3,9 +3,13 @@
 # go to root
 cd
 
-# disable se linux
-echo 0 > /selinux/enforce
-sed -i 's/SELINUX=enforcing/SELINUX=disable/g'  /etc/sysconfig/selinux
+#DISABLE SELINUX START
+echo -n "Disable selinux..."
+setenforce 0
+sed -i "/^#/n;s/enforcing/disabled/" /etc/sysconfig/selinux
+sed -i "/^#/n;s/enforcing/disabled/" /etc/selinux/config
+echo "Done!"
+#DESABLE SELINUX END
 
 # set locale
 sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
