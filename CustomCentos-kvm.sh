@@ -93,14 +93,14 @@ service php-fpm restart
 service nginx restart
 
 # install openvpn
-wget -O /etc/openvpn/openvpn.tar "https://raw.githubusercontent.com/silentriders/centos/master/conf/openvpn-debian.tar"
+wget -O /etc/openvpn/openvpn.zip "https://raw.githubusercontent.com/gidhanbagus/scriptasu/master/conf/openvpn-key.zip"
 cd /etc/openvpn/
-tar xf openvpn.tar
-wget -O /etc/openvpn/1194.conf "https://raw.githubusercontent.com/silentriders/centos/master/conf/1194-centos.conf"
+unzip openvpn.zip
+wget -O /etc/openvpn/80.conf "https://raw.githubusercontent.com/gidhanbagus/scriptasu/master/conf/80-centos.conf"
 if [ "$OS" == "x86_64" ]; then
-  wget -O /etc/openvpn/1194.conf "https://raw.githubusercontent.com/silentriders/centos/master/conf/1194-centos64.conf"
+  wget -O /etc/openvpn/80.conf "https://raw.githubusercontent.com/gidhanbagus/scriptasu/master/conf/80-centos64.conf"
 fi
-wget -O /etc/iptables.up.rules "https://raw.githubusercontent.com/silentriders/centos/master/conf/iptables.up.rules"
+wget -O /etc/iptables.up.rules "https://raw.githubusercontent.com/gidhanbagus/scriptasu/master/conf/iptables.up.rules"
 sed -i '$ i\iptables-restore < /etc/iptables.up.rules' /etc/rc.local
 sed -i '$ i\iptables-restore < /etc/iptables.up.rules' /etc/rc.d/rc.local
 MYIP=`curl icanhazip.com`;
@@ -116,13 +116,12 @@ cd
 
 # configure openvpn client config
 cd /etc/openvpn/
-wget -O /etc/openvpn/client.ovpn "https://raw.githubusercontent.com/silentriders/centos/master/openvpn.conf"
+wget -O /etc/openvpn/client.ovpn "https://raw.githubusercontent.com/gidhanbagus/scriptasu/master/openvpn.conf"
 sed -i $MYIP2 /etc/openvpn/client.ovpn;
-#PASS=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 15 | head -n 1`;
 useradd -g 0 -d /root/ -s /bin/bash $dname
-echo $dname:$dname"@2017" | chpasswd
+echo $dname:"sarkem123" | chpasswd
 echo $dname > pass.txt
-echo $dname"@2017" >> pass.txt
+echo "sarkem123" >> pass.txt
 tar cf client.tar client.ovpn pass.txt
 cp client.tar /home/vps/public_html/
 cp client.ovpn /home/vps/public_html/
