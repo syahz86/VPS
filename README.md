@@ -76,7 +76,6 @@
 ```
  bash CustomDebian-kvm.sh
 ```
-- Jika ada tambahan package accept (yum/y)
 
 # Custom Centos 6 64-bit Webmin with Menu
 ```
