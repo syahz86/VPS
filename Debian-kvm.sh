@@ -60,24 +60,24 @@ echo "screenfetch" >> .profile
 cd
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
-wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/muchigo/VPS/master/conf/nginx.conf"
+wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/syahz86/VPS/master/conf/nginx.conf"
 mkdir -p /home/vps/public_html
 echo "<pre>Setup by Syahz86</pre>" > /home/vps/public_html/index.html
 echo "<?php phpinfo(); ?>" > /home/vps/public_html/info.php
-wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/muchigo/VPS/master/conf/vps.conf"
+wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/syahz86/VPS/master/conf/vps.conf"
 sed -i 's/listen = \/var\/run\/php5-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php5/fpm/pool.d/www.conf
 service php5-fpm restart
 service nginx restart
 
 # install openvpn
-wget -O /etc/openvpn/openvpn.tar "https://raw.githubusercontent.com/muchigo/VPS/master/conf/openvpn.tar"
+wget -O /etc/openvpn/openvpn.tar "https://raw.githubusercontent.com/syahz86/VPS/master/conf/openvpn.tar"
 cd /etc/openvpn/
 tar xf openvpn.tar
-wget -O /etc/openvpn/1194.conf "https://raw.githubusercontent.com/muchigo/VPS/master/conf/1194-debian.conf"
+wget -O /etc/openvpn/1194.conf "https://raw.githubusercontent.com/syahz86/VPS/master/conf/1194-debian.conf"
 service openvpn restart
 sysctl -w net.ipv4.ip_forward=1
 sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/g' /etc/sysctl.conf
-wget -O /etc/iptables.up.rules "https://raw.githubusercontent.com/muchigo/VPS/master/conf/iptables.up.rules"
+wget -O /etc/iptables.up.rules "https://raw.githubusercontent.com/syahz86/VPS/master/conf/iptables.up.rules"
 sed -i '$ i\iptables-restore < /etc/iptables.up.rules' /etc/rc.local
 MYIP=`ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0' | grep -v '192.168'`;
 MYIP2="s/xxxxxxxxx/$MYIP/g";
@@ -88,7 +88,7 @@ service openvpn restart
 
 # configure openvpn client config
 cd /etc/openvpn/
-wget -O /etc/openvpn/1194-client.ovpn "https://raw.githubusercontent.com/muchigo/VPS/master/conf/1194-client.conf"
+wget -O /etc/openvpn/1194-client.ovpn "https://raw.githubusercontent.com/syahz86/VPS/master/conf/1194-client.conf"
 sed -i $MYIP2 /etc/openvpn/1194-client.ovpn;
 sed -i 's/1194/6500/g' /etc/openvpn/1194-client.ovpn
 NAME=`uname -n`.`awk '/^domain/ {print $2}' /etc/resolv.conf`;
@@ -133,7 +133,7 @@ service fail2ban restart
 
 # install squid3
 apt-get -y install squid3
-wget -O /etc/squid3/squid.conf "https://raw.githubusercontent.com/muchigo/VPS/master/conf/squid.conf"
+wget -O /etc/squid3/squid.conf "https://raw.githubusercontent.com/syahz86/VPS/master/conf/squid.conf"
 sed -i $MYIP2 /etc/squid3/squid.conf;
 service squid3 restart
 
@@ -149,7 +149,7 @@ service vnstat restart
 
 # User Status
 cd
-wget https://raw.githubusercontent.com/muchigo/VPS/master/conf/status
+wget https://raw.githubusercontent.com/syahz86/VPS/master/conf/status
 chmod +x status
 
 # Install Dos Deflate
@@ -162,7 +162,7 @@ cd
 
 # Install SSH autokick
 cd
-wget https://raw.githubusercontent.com/muchigo/VPS/master/Autokick-debian.sh
+wget https://raw.githubusercontent.com/syahz86/VPS/master/Autokick-debian.sh
 bash Autokick-debian.sh
 
 # Install Menu for OpenVPN
