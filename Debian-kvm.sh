@@ -62,7 +62,7 @@ rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
 wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/muchigo/VPS/master/conf/nginx.conf"
 mkdir -p /home/vps/public_html
-echo "<pre>Setup by Kiellez</pre>" > /home/vps/public_html/index.html
+echo "<pre>Setup by Syahz86</pre>" > /home/vps/public_html/index.html
 echo "<?php phpinfo(); ?>" > /home/vps/public_html/info.php
 wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/muchigo/VPS/master/conf/vps.conf"
 sed -i 's/listen = \/var\/run\/php5-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php5/fpm/pool.d/www.conf
@@ -167,7 +167,7 @@ bash Autokick-debian.sh
 
 # Install Menu for OpenVPN
 cd
-wget https://raw.githubusercontent.com/muchigo/VPS/master/conf/menu
+wget https://raw.githubusercontent.com/syahz86/VPS/master/conf/menu
 mv ./menu /usr/local/bin/menu
 chmod +x /usr/local/bin/menu
 
@@ -185,7 +185,7 @@ service webmin restart
 
 # info
 clear
-echo "Setup by Kiellez"
+echo "Setup by Syahz86"
 echo "OpenVPN  : TCP 1194 (client config : http://$MYIP:81/client.tar)"
 echo "OpenSSH  : 22, 143"
 echo "Dropbear : 109, 110, 443"
