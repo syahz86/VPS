@@ -131,15 +131,13 @@ cd
 
 # configure openvpn client config
 cd /etc/openvpn/
-wget -O /etc/openvpn/client.ovpn "https://raw.githubusercontent.com/syahz86/VPS/master/conf/openvpn.conf"
-sed -i $MYIP2 /etc/openvpn/client.ovpn;
-useradd -g 0 -d /root/ -s /bin/bash $dname
-echo $dname:"test1" | chpasswd
-echo $dname > pass.txt
-echo "test1" >> pass.txt
-tar cf client.tar client.ovpn pass.txt
+wget -O /etc/openvpn/1194-client.ovpn "https://raw.githubusercontent.com/syahz86/VPS/master/conf/1194-client.conf"
+sed -i $MYIP2 /etc/openvpn/1194-client.ovpn;
+PASS=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 15 | head -n 1`;
+tar cf client.tar 1194-client.ovpn
 cp client.tar /home/vps/public_html/
 cp client.ovpn /home/vps/public_html/
+cd
 
 # setting port ssh
 sed -i '/Port 22/a Port 143' /etc/ssh/sshd_config
