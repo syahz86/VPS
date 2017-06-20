@@ -188,11 +188,9 @@ sed -i 's/ssl=1/ssl=0/g' /etc/webmin/miniserv.conf
 service webmin restart
 chkconfig webmin on
 
-# Install SSH autokick
+# Install crontab service
 cd
 yum install vixie-cron -y
-wget https://raw.githubusercontent.com/syahz86/VPS/master/Autokick-centos.sh
-bash Autokick-centos.sh
 
 # User Status
 cd /usr/bin
@@ -324,5 +322,6 @@ echo "IPv6     : [off]"
 echo "Torrent Block :[on]" 
 echo "Playstation Block :[on]" 
 echo -e "Please type \e[1;33;44mmenu\e[0m for options"
+echo -e "\e[1;31mGo to my github for more autoscripts\e[0m"
 
 echo "================================================"
