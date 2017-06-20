@@ -326,6 +326,6 @@ echo "Fail2Ban : [on]"
 echo "IPv6     : [off]"
 echo "Torrent Block :[on]" 
 echo "Playstation Block :[on]" 
-echo -e "Please type \e[34;1mmenu\e[0m for options"
+echo -e "Please type \e[1;33;44mmenu\e[0m for options"
 
 echo "================================================"
