@@ -1,12 +1,24 @@
 #!/bin/bash
 
+# initialisasi var
+OS=`uname -p`;
+ether=`ifconfig | cut -c 1-8 | sort | uniq -u | grep venet0 | grep -v venet0:`
+if [ "$ether" = "" ]; then
+        ether=eth0
+fi
+#ether='ifconfig -a | sed 's/[ \t].*//;/^\(lo\|\)$/d' | grep -v venet0:';
+MYIP=`curl -s ifconfig.me`;
+MYIP2="s/xxxxxxxxx/$MYIP/g";
+
 # go to root
 cd
+
+# set time GMT +8
+ln -fs /usr/share/zoneinfo/Asia/Malaysia /etc/localtime
 
 #DISABLE SELINUX START
 echo -n "Disable selinux..."
 setenforce 0
-sed -i "/^#/n;s/enforcing/disabled/" /etc/sysconfig/selinux
 sed -i "/^#/n;s/enforcing/disabled/" /etc/selinux/config
 echo "Done!"
 #DESABLE SELINUX END
@@ -29,6 +41,18 @@ wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 rpm -Uvh epel-release-6-8.noarch.rpm
 rpm -Uvh remi-release-6.rpm
 
+if [ "$OS" == "x86_64" ]; then
+  wget http://repository.it4i.cz/mirrors/repoforge/redhat/el6/en/x86_64/rpmforge/RPMS/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
+  rpm -Uvh rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
+else
+  wget http://ftp.tu-chemnitz.de/pub/linux/dag/redhat/el6/en/i386/rpmforge/RPMS/rpmforge-release-0.5.3-1.el6.rf.i686.rpm
+  rpm -Uvh rpmforge-release-0.5.3-1.el6.rf.i686.rpm
+fi
+
+sed -i 's/enabled = 1/enabled = 0/g' /etc/yum.repos.d/rpmforge.repo
+sed -i -e "/^\[remi\]/,/^\[.*\]/ s|^\(enabled[ \t]*=[ \t]*0\\)|enabled=1|" /etc/yum.repos.d/remi.repo
+rm -f *.rpm
+
 # remove unused
 yum -y remove sendmail;
 yum -y remove httpd;
@@ -39,18 +63,18 @@ yum -y update
 
 # install webserver
 yum -y install nginx php-fpm php-cli
-service nginx restart
-service php-fpm restart
+service nginx start
+service php-fpm start
 chkconfig nginx on
 chkconfig php-fpm on
 
 # install essential package
-yum -y install openvpn vnstat git nano
+yum -y install rrdtool screen iftop htop nmap bc nethogs openvpn vnstat ngrep mtr git zsh mrtg unrar rsyslog rkhunter mrtg net-snmp net-snmp-utils expect nano bind-utils
 yum -y groupinstall 'Development Tools'
 yum -y install cmake
+yum -y --enablerepo=rpmforge install axel sslh ptunnel unrar
 
-
-# exim off
+# disable exim
 service exim stop
 chkconfig exim off
 
@@ -84,14 +108,17 @@ service php-fpm restart
 service nginx restart
 
 # install openvpn
-wget -O /etc/openvpn/openvpn.tar "https://raw.githubusercontent.com/syahz86/VPS/master/conf/openvpn.tar"
+wget -O /etc/openvpn/openvpn.zip "https://raw.githubusercontent.com/syahz86/VPS/master/conf/openvpn-key.zip"
 cd /etc/openvpn/
-tar xf openvpn.tar
-wget -O /etc/openvpn/1194.conf "https://raw.githubusercontent.com/syahz86/VPS/master/conf/1194-centos.conf"
+unzip openvpn.zip
+wget -O /etc/openvpn/80.conf "https://raw.githubusercontent.com/syahz86/VPS/master/conf/80-centos.conf"
+if [ "$OS" == "x86_64" ]; then
+  wget -O /etc/openvpn/80.conf "https://raw.githubusercontent.com/syahz86/VPS/master/conf/80-centos64.conf"
+fi
 wget -O /etc/iptables.up.rules "https://raw.githubusercontent.com/syahz86/VPS/master/conf/iptables.up.rules"
 sed -i '$ i\iptables-restore < /etc/iptables.up.rules' /etc/rc.local
 sed -i '$ i\iptables-restore < /etc/iptables.up.rules' /etc/rc.d/rc.local
-MYIP=`ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0' | grep -v '192.168'`;
+MYIP=`curl icanhazip.com`;
 MYIP2="s/xxxxxxxxx/$MYIP/g";
 sed -i $MYIP2 /etc/iptables.up.rules;
 sed -i 's/venet0/eth0/g' /etc/iptables.up.rules
@@ -109,6 +136,7 @@ sed -i $MYIP2 /etc/openvpn/1194-client.ovpn;
 PASS=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 15 | head -n 1`;
 tar cf client.tar 1194-client.ovpn
 cp client.tar /home/vps/public_html/
+cp client.ovpn /home/vps/public_html/
 cd
 
 # setting port ssh
@@ -160,9 +188,16 @@ sed -i 's/ssl=1/ssl=0/g' /etc/webmin/miniserv.conf
 service webmin restart
 chkconfig webmin on
 
+# Install SSH autokick
+cd
+yum install vixie-cron -y
+wget https://raw.githubusercontent.com/syahz86/VPS/master/Autokick-centos.sh
+bash Autokick-centos.sh
+
 # User Status
 cd
 wget https://raw.githubusercontent.com/syahz86/VPS/master/conf/status
+cp /root/status /usr/bin/status
 chmod +x status
 
 # Install Dos Deflate
@@ -173,28 +208,33 @@ cd ddos-deflate-master
 ./install.sh
 cd
 
-# Install SSH autokick
+# download script
+cd /usr/bin
+wget https://raw.githubusercontent.com/syahz86/Centos/master/menu && chmod +x menu
+wget https://raw.githubusercontent.com/syahz86/Centos/master/badvpn-udpgw && chmod +x badvpn-udpgw
+wget https://raw.githubusercontent.com/syahz86/Centos/master/banned-user && chmod +x banned-user
+wget https://raw.githubusercontent.com/syahz86/Centos/master/basename && chmod +x basename
+wget https://raw.githubusercontent.com/syahz86/Centos/master/benchmark && chmod +x benchmark
+wget https://raw.githubusercontent.com/syahz86/Centos/master/bmon && chmod +x bmon
+wget https://raw.githubusercontent.com/syahz86/Centos/master/delete-user-expire && chmod +x delete-user-expire
+wget https://raw.githubusercontent.com/syahz86/Centos/master/disable-user-expire && chmod +x disable-user-expire
+wget https://raw.githubusercontent.com/syahz86/Centos/master/dropmon && chmod +x dropmon
+wget https://raw.githubusercontent.com/syahz86/Centos/master/re-drop && chmod +x re-drop
+wget https://raw.githubusercontent.com/syahz86/Centos/master/test-speed && chmod +x test-speed
+wget https://raw.githubusercontent.com/syahz86/Centos/master/user-add && chmod +x user-add
+wget https://raw.githubusercontent.com/syahz86/Centos/master/user-add-pptp && chmod +x user-add-pptp
+wget https://raw.githubusercontent.com/syahz86/Centos/master/user-del && chmod +x user-del
+wget https://raw.githubusercontent.com/syahz86/Centos/master/user-expire-list && chmod +x user-expire-list
+wget https://raw.githubusercontent.com/syahz86/Centos/master/user-gen && chmod +x user-gen
+wget https://raw.githubusercontent.com/syahz86/Centos/master/user-limit && chmod +x user-limit
+wget https://raw.githubusercontent.com/syahz86/Centos/master/user-list && chmod +x user-list
+wget https://raw.githubusercontent.com/syahz86/Centos/master/user-login && chmod +x user-login
+wget https://raw.githubusercontent.com/syahz86/Centos/master/user-pass && chmod +x user-pass
+wget https://raw.githubusercontent.com/syahz86/Centos/master/user-renew && chmod +x user-renew
+wget https://raw.githubusercontent.com/syahz86/Centos/master/users && chmod +x users
+wget https://raw.githubusercontent.com/syahz86/Centos/master/user-active-list && chmod +x user-active-list
+wget wget http://pencabulmisteri.esy.es/centos/test.py && chmod +x test.py
 cd
-yum install vixie-cron -y
-wget https://raw.githubusercontent.com/syahz86/VPS/master/Autokick-centos.sh
-bash Autokick-centos.sh
-
-# install monitor login user dropbear
-cd
-wget https://raw.githubusercontent.com/syahz86/VPN/master/conf/userlogin.sh
-chmod +x userlogin.sh
-
-# EasyAdd Usernew Centos
-cd
-wget https://raw.githubusercontent.com/syahz86/VPN/master/conf/create-user.sh
-cp /root/create-user.sh /usr/bin/usernew
-chmod +x /usr/bin/usernew
-
-# User Expired Centos
-cd
-wget https://raw.githubusercontent.com/syahz86/VPN/master/conf/autoexpire.sh
-chmod +x autoexpire.sh
-sh autoexpire.sh
 
 #bonus block playstation
 iptables -A OUTPUT -d account.sonyentertainmentnetwork.com -j DROP
@@ -263,8 +303,12 @@ iptables -A FORWARD -p tcp --dport 25 -j REJECT
 iptables -A OUTPUT -p tcp --dport 25 -j REJECT 
 iptables-save
 
-# set time GMT +8
-ln -fs /usr/share/zoneinfo/Asia/Malaysia /etc/localtime
+# install speedtest server
+cd
+wget https://raw.githubusercontent.com/syahz86/VPN/master/conf/speedtest_cli.py
+chmod a+rx speedtest_cli.py
+sudo mv speedtest_cli.py /usr/local/bin/speedtest-cli
+sudo chown root:root /usr/local/bin/speedtest-cli
 
 # Restart Service
 chown -R nginx:nginx /home/vps/public_html
@@ -295,8 +339,6 @@ echo "Fail2Ban : [on]"
 echo "IPv6     : [off]"
 echo "Torrent Block :[on]" 
 echo "Playstation Block :[on]" 
-echo "Please type sh userlogin.sh port to check login user"
-echo "Please type usernew for new user"
-echo "Please type cat expireduser.txt for expired list"
+echo -e "Please type \e[1;33;44mmenu\e[0m for options"
 
 echo "================================================"
