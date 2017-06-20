@@ -188,11 +188,17 @@ sed -i 's/ssl=1/ssl=0/g' /etc/webmin/miniserv.conf
 service webmin restart
 chkconfig webmin on
 
-# User Status
+# Install SSH autokick
 cd
-wget https://raw.githubusercontent.com/syahz86/VPS/master/conf/status
-cp /root/status /usr/bin/status
-chmod +x status
+yum install vixie-cron -y
+wget https://raw.githubusercontent.com/syahz86/VPS/master/Autokick-centos.sh
+bash Autokick-centos.sh
+
+# User Status
+cd /usr/bin
+wget https://raw.githubusercontent.com/syahz86/VPN/master/conf/customstatus
+cp /root/customstatus /usr/bin/customstatus
+chmod +x customstatus
 
 # Install Dos Deflate
 apt-get -y install dnsutils dsniff
@@ -202,32 +208,16 @@ cd ddos-deflate-master
 ./install.sh
 cd
 
-# download script
+# install custommenu
 cd /usr/bin
-wget https://raw.githubusercontent.com/syahz86/Centos/master/menu && chmod +x menu
-wget https://raw.githubusercontent.com/syahz86/Centos/master/badvpn-udpgw && chmod +x badvpn-udpgw
-wget https://raw.githubusercontent.com/syahz86/Centos/master/banned-user && chmod +x banned-user
-wget https://raw.githubusercontent.com/syahz86/Centos/master/basename && chmod +x basename
-wget https://raw.githubusercontent.com/syahz86/Centos/master/benchmark && chmod +x benchmark
-wget https://raw.githubusercontent.com/syahz86/Centos/master/bmon && chmod +x bmon
-wget https://raw.githubusercontent.com/syahz86/Centos/master/delete-user-expire && chmod +x delete-user-expire
-wget https://raw.githubusercontent.com/syahz86/Centos/master/disable-user-expire && chmod +x disable-user-expire
-wget https://raw.githubusercontent.com/syahz86/Centos/master/dropmon && chmod +x dropmon
-wget https://raw.githubusercontent.com/syahz86/Centos/master/re-drop && chmod +x re-drop
-wget https://raw.githubusercontent.com/syahz86/Centos/master/test-speed && chmod +x test-speed
 wget https://raw.githubusercontent.com/syahz86/Centos/master/user-add && chmod +x user-add
-wget https://raw.githubusercontent.com/syahz86/Centos/master/user-add-pptp && chmod +x user-add-pptp
-wget https://raw.githubusercontent.com/syahz86/Centos/master/user-del && chmod +x user-del
 wget https://raw.githubusercontent.com/syahz86/Centos/master/user-expire-list && chmod +x user-expire-list
-wget https://raw.githubusercontent.com/syahz86/Centos/master/user-gen && chmod +x user-gen
-wget https://raw.githubusercontent.com/syahz86/Centos/master/user-limit && chmod +x user-limit
-wget https://raw.githubusercontent.com/syahz86/Centos/master/user-list && chmod +x user-list
-wget https://raw.githubusercontent.com/syahz86/Centos/master/user-login && chmod +x user-login
-wget https://raw.githubusercontent.com/syahz86/Centos/master/user-pass && chmod +x user-pass
-wget https://raw.githubusercontent.com/syahz86/Centos/master/user-renew && chmod +x user-renew
-wget https://raw.githubusercontent.com/syahz86/Centos/master/users && chmod +x users
 wget https://raw.githubusercontent.com/syahz86/Centos/master/user-active-list && chmod +x user-active-list
-wget wget http://pencabulmisteri.esy.es/centos/test.py && chmod +x test.py
+wget https://raw.githubusercontent.com/syahz86/VPN/master/menu && chmod +x menu
+wget https://raw.githubusercontent.com/syahz86/VPN/master/conf/userlogin.sh && chmod +x userlogin.sh
+wget https://raw.githubusercontent.com/syahz86/Centos/master/test-speed && chmod +x test-speed
+wget https://raw.githubusercontent.com/syahz86/Centos/master/disable-user-expire && chmod +x disable-user-expire
+wget https://raw.githubusercontent.com/syahz86/Centos/master/user-del && chmod +x user-del
 cd
 
 #bonus block playstation
