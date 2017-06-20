@@ -183,9 +183,9 @@ chkconfig squid on
 # install webmin
 cd
 yum -y install perl-Net-SSLeay
-wget http://prdownloads.sourceforge.net/webadmin/webmin-1.801-1.noarch.rpm
-rpm -i webmin-1.801-1.noarch.rpm;
-rm webmin-1.801-1.noarch.rpm
+wget https://nchc.dl.sourceforge.net/project/webadmin/webmin/1.840/webmin-1.840-1.noarch.rpm
+rpm -i webmin-1.840-1.noarch.rpm;
+rm webmin-1.840-1.noarch.rpm
 sed -i 's/ssl=1/ssl=0/g' /etc/webmin/miniserv.conf
 service webmin restart
 chkconfig webmin on
@@ -193,6 +193,7 @@ chkconfig webmin on
 # User Status
 cd
 wget https://raw.githubusercontent.com/syahz86/VPS/master/conf/status
+cp /root/status /usr/bin/status
 chmod +x status
 
 # Install Dos Deflate
@@ -327,6 +328,6 @@ echo "Fail2Ban : [on]"
 echo "IPv6     : [off]"
 echo "Torrent Block :[on]" 
 echo "Playstation Block :[on]" 
-echo "Please type menu for options"
+echo "Please type (\e[34;1mmenu [PORT]\e[0m) for options"
 
 echo "================================================"
