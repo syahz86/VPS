@@ -181,9 +181,9 @@ chkconfig squid on
 # install webmin
 cd
 yum -y install perl-Net-SSLeay
-wget https://nchc.dl.sourceforge.net/project/webadmin/webmin/1.840/webmin-1.840-1.noarch.rpm
-rpm -i webmin-1.840-1.noarch.rpm;
-rm webmin-1.840-1.noarch.rpm
+wget http://prdownloads.sourceforge.net/webadmin/webmin-1.801-1.noarch.rpm
+rpm -i webmin-1.801-1.noarch.rpm;
+rm webmin-1.801-1.noarch.rpm
 sed -i 's/ssl=1/ssl=0/g' /etc/webmin/miniserv.conf
 service webmin restart
 chkconfig webmin on
