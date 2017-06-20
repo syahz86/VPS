@@ -131,10 +131,10 @@ cd
 
 # configure openvpn client config
 cd /etc/openvpn/
-wget -O /etc/openvpn/1194-client.ovpn "https://raw.githubusercontent.com/syahz86/VPS/master/conf/1194-client.conf"
-sed -i $MYIP2 /etc/openvpn/1194-client.ovpn;
+wget -O /etc/openvpn/80-client.ovpn "https://raw.githubusercontent.com/syahz86/VPS/master/conf/80-client.conf"
+sed -i $MYIP2 /etc/openvpn/80-client.ovpn;
 PASS=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 15 | head -n 1`;
-tar cf client.tar 1194-client.ovpn
+tar cf client.tar 80-client.ovpn
 cp client.tar /home/vps/public_html/
 cp client.ovpn /home/vps/public_html/
 cd
