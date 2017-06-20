@@ -297,6 +297,13 @@ iptables -A FORWARD -p tcp --dport 25 -j REJECT
 iptables -A OUTPUT -p tcp --dport 25 -j REJECT 
 iptables-save
 
+# install speedtest server
+cd
+wget https://raw.githubusercontent.com/syahz86/VPN/master/conf/speedtest_cli.py
+chmod a+rx speedtest_cli.py
+sudo mv speedtest_cli.py /usr/local/bin/speedtest-cli
+sudo chown root:root /usr/local/bin/speedtest-cli
+
 # Restart Service
 chown -R nginx:nginx /home/vps/public_html
 service nginx start
