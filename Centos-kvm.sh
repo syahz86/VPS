@@ -215,6 +215,7 @@ wget https://raw.githubusercontent.com/syahz86/Centos/master/user-expire-list &&
 wget https://raw.githubusercontent.com/syahz86/Centos/master/user-active-list && chmod +x user-active-list
 wget https://raw.githubusercontent.com/syahz86/VPN/master/menu && chmod +x menu
 wget https://raw.githubusercontent.com/syahz86/VPN/master/conf/userlogin.sh && chmod +x userlogin.sh
+wget https://raw.githubusercontent.com/syahz86/Centos/master/test-speed && chmod +x test-speed
 
 #bonus block playstation
 iptables -A OUTPUT -d account.sonyentertainmentnetwork.com -j DROP
