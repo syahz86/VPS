@@ -188,6 +188,12 @@ sed -i 's/ssl=1/ssl=0/g' /etc/webmin/miniserv.conf
 service webmin restart
 chkconfig webmin on
 
+# Install SSH autokick
+cd
+yum install vixie-cron -y
+wget https://raw.githubusercontent.com/syahz86/VPS/master/Autokick-centos.sh
+bash Autokick-centos.sh
+
 # User Status
 cd
 wget https://raw.githubusercontent.com/syahz86/VPS/master/conf/status
