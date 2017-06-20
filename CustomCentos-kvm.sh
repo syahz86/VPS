@@ -131,10 +131,10 @@ cd
 
 # configure openvpn client config
 cd /etc/openvpn/
-wget -O /etc/openvpn/1194-client.ovpn "https://raw.githubusercontent.com/syahz86/VPS/master/conf/1194-client.conf"
-sed -i $MYIP2 /etc/openvpn/1194-client.ovpn;
+wget -O /etc/openvpn/80-client.ovpn "https://raw.githubusercontent.com/syahz86/VPS/master/conf/80-client.conf"
+sed -i $MYIP2 /etc/openvpn/80-client.ovpn;
 PASS=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 15 | head -n 1`;
-tar cf client.tar 1194-client.ovpn
+tar cf client.tar 80-client.ovpn
 cp client.tar /home/vps/public_html/
 cp client.ovpn /home/vps/public_html/
 cd
@@ -188,10 +188,6 @@ sed -i 's/ssl=1/ssl=0/g' /etc/webmin/miniserv.conf
 service webmin restart
 chkconfig webmin on
 
-# Install crontab service
-cd
-yum install vixie-cron -y
-
 # User Status
 cd /usr/bin
 wget https://raw.githubusercontent.com/syahz86/VPN/master/conf/customstatus
@@ -206,11 +202,11 @@ cd ddos-deflate-master
 ./install.sh
 cd
 
-# install custommenu
+# install custom menu
 cd /usr/bin
 wget https://raw.githubusercontent.com/syahz86/Centos/master/user-add && chmod +x user-add
 wget https://raw.githubusercontent.com/syahz86/Centos/master/user-expire-list && chmod +x user-expire-list
-wget https://raw.githubusercontent.com/syahz86/Centos/master/user-active-list && chmod +x user-active-list
+wget https://raw.githubusercontent.com/syahz86/Centos/master/user-list && chmod +x user-list
 wget https://raw.githubusercontent.com/syahz86/VPN/master/menu && chmod +x menu
 wget https://raw.githubusercontent.com/syahz86/VPN/master/conf/userlogin.sh && chmod +x userlogin.sh
 wget https://raw.githubusercontent.com/syahz86/Centos/master/test-speed && chmod +x test-speed
@@ -322,6 +318,5 @@ echo "IPv6     : [off]"
 echo "Torrent Block :[on]" 
 echo "Playstation Block :[on]" 
 echo -e "Please type \e[1;33;44mmenu\e[0m for options"
-echo -e "\e[1;31mGo to my github for more autoscripts\e[0m"
 
 echo "================================================"
