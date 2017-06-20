@@ -4,7 +4,7 @@
 cd
 
 # download userlimit
-wget https://raw.githubusercontent.com/muchigo/VPS/master/conf/userlimit-debian.sh
+wget https://raw.githubusercontent.com/syahz86/VPS/master/conf/userlimit-debian.sh
 chmod +x userlimit-debian.sh
 
 # setup cron for userlimit
