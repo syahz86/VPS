@@ -4,7 +4,7 @@
 cd
 
 # download userlimit
-wget https://raw.githubusercontent.com/muchigo/VPS/master/conf/userlimit-centos.sh
+wget https://raw.githubusercontent.com/syahz86/VPS/master/conf/userlimit-centos.sh
 chmod +x userlimit-centos.sh
 
 # setup cron for userlimit
