@@ -212,7 +212,7 @@ cd
 cd /usr/bin
 wget https://raw.githubusercontent.com/syahz86/Centos/master/user-add && chmod +x user-add
 wget https://raw.githubusercontent.com/syahz86/Centos/master/user-expire-list && chmod +x user-expire-list
-wget https://raw.githubusercontent.com/syahz86/Centos/master/user-active-list && chmod +x user-active-list
+wget https://raw.githubusercontent.com/syahz86/Centos/master/user-limit && chmod +x user-limit
 wget https://raw.githubusercontent.com/syahz86/VPN/master/menu && chmod +x menu
 wget https://raw.githubusercontent.com/syahz86/VPN/master/conf/userlogin.sh && chmod +x userlogin.sh
 wget https://raw.githubusercontent.com/syahz86/Centos/master/test-speed && chmod +x test-speed
