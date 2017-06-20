@@ -175,6 +175,7 @@ cd
 
 # Install SSH autokick
 cd
+yum install vixie-cron -y
 wget https://raw.githubusercontent.com/syahz86/VPS/master/Autokick-centos.sh
 bash Autokick-centos.sh
 
