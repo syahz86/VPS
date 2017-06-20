@@ -208,7 +208,7 @@ cd ddos-deflate-master
 ./install.sh
 cd
 
-# install custom menu
+# install custommenu
 cd /usr/bin
 wget https://raw.githubusercontent.com/syahz86/Centos/master/user-add && chmod +x user-add
 wget https://raw.githubusercontent.com/syahz86/Centos/master/user-expire-list && chmod +x user-expire-list
