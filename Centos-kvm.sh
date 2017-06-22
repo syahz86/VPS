@@ -218,6 +218,7 @@ wget https://raw.githubusercontent.com/syahz86/VPN/master/conf/userlogin.sh && c
 wget https://raw.githubusercontent.com/syahz86/Centos/master/test-speed && chmod +x test-speed
 wget https://raw.githubusercontent.com/syahz86/Centos/master/disable-user-expire && chmod +x disable-user-expire
 wget https://raw.githubusercontent.com/syahz86/Centos/master/user-del && chmod +x user-del
+wget https://raw.githubusercontent.com/syahz86/Centos/master/user-renew && chmod +x user-renew
 cd
 
 #bonus block playstation
