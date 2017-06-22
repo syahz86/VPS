@@ -160,10 +160,6 @@ cd ddos-deflate-master
 ./install.sh
 cd
 
-# install monitor dropbear login
-cd /usr/bin
-wget https://raw.githubusercontent.com/syahz86/VPN/master/conf/userlogin.sh && chmod +x userlogin.sh
-
 # Install Menu for OpenVPN
 cd
 wget https://raw.githubusercontent.com/syahz86/VPS/master/conf/menu
