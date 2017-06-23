@@ -188,9 +188,11 @@ sed -i 's/ssl=1/ssl=0/g' /etc/webmin/miniserv.conf
 service webmin restart
 chkconfig webmin on
 
+# install crontab service
+yum install vixie-cron -y
+
 # Install SSH autokick
 cd
-yum install vixie-cron -y
 wget https://raw.githubusercontent.com/syahz86/VPS/master/Autokick-centos.sh
 bash Autokick-centos.sh
 
@@ -201,7 +203,7 @@ cp /root/customstatus /usr/bin/customstatus
 chmod +x customstatus
 
 # Install Dos Deflate
-apt-get -y install dnsutils dsniff
+apt-get install dnsutils dsniff -y
 wget https://github.com/jgmdev/ddos-deflate/archive/master.zip
 unzip master.zip
 cd ddos-deflate-master
