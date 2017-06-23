@@ -195,7 +195,7 @@ cp /root/customstatus /usr/bin/customstatus
 chmod +x customstatus
 
 # Install Dos Deflate
-apt-get -y install dnsutils dsniff
+apt-get install dnsutils dsniff -y
 wget https://github.com/jgmdev/ddos-deflate/archive/master.zip
 unzip master.zip
 cd ddos-deflate-master
