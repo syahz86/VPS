@@ -14,7 +14,7 @@ MYIP2="s/xxxxxxxxx/$MYIP/g";
 cd
 
 # set time GMT +8
-ln -fs /usr/share/zoneinfo/Asia/Malaysia /etc/localtime
+ln -fs /usr/share/zoneinfo/Asia/Kuala_Lumpur /etc/localtime
 
 #DISABLE SELINUX START
 echo -n "Disable selinux..."
