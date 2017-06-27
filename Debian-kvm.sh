@@ -165,7 +165,7 @@ cd
 wget https://raw.githubusercontent.com/syahz86/VPS/master/Autokick-debian.sh
 bash Autokick-debian.sh
 
-# Install Monitor Multilogin Dropbear
+# Install Monitor Multilogin Dropbear & OpenSSH
 cd
 wget -O /usr/bin/dropmon https://raw.githubusercontent.com/syahz86/VPS/master/conf/dropmon.sh
 #cd
