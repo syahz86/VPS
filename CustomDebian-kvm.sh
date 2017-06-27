@@ -160,6 +160,14 @@ cd ddos-deflate-master
 ./install.sh
 cd
 
+# Install Monitor Multilogin Dropbear & OpenSSH
+cd
+wget -O /usr/bin/dropmon https://raw.githubusercontent.com/syahz86/VPS/master/conf/dropmon.sh
+#cd
+cd
+chmod +x /usr/bin/dropmon
+#cd
+
 # Install Menu for OpenVPN
 cd
 wget https://raw.githubusercontent.com/syahz86/VPS/master/conf/menu
