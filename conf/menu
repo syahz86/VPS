@@ -58,7 +58,7 @@ function used_data(){
 
 clear
 PS3='Please enter your choice: '
-options=("Add User" "Renew User" "Delete User" "Current Connected Users" "User List" "Ram Status" "Users Not Expired" "Expired Users" "Monitor Dropbear & OpenSSH Login" "Used Data By Users" "Quit")
+options=("Add User" "Renew User" "Delete User" "Current Connected Users" "User List" "Ram Status" "Users Not Expired" "Expired Users" "Monitor Dropbear & OpenSSH" "Used Data By Users" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -101,7 +101,7 @@ do
 			expired_users
 			break
 			;;
-                "Monitor Dropbear & OpenSSH Login")
+                "Monitor Dropbear & OpenSSH")
 			dropmon
 			break
 			;;
