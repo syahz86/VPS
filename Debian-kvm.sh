@@ -165,9 +165,17 @@ cd
 wget https://raw.githubusercontent.com/syahz86/VPS/master/Autokick-debian.sh
 bash Autokick-debian.sh
 
+# Install Monitor Multilogin Dropbear
+cd
+wget -O /usr/bin/dropmon https://raw.githubusercontent.com/syahz86/VPN/master/conf/dropmon.sh
+#cd
+cd
+chmod +x /usr/bin/dropmon
+#cd
+
 # Install Menu for OpenVPN
 cd
-wget https://raw.githubusercontent.com/syahz86/VPS/master/conf/menu
+wget https://raw.githubusercontent.com/syahz86/VPN/master/conf/menu
 mv ./menu /usr/local/bin/menu
 chmod +x /usr/local/bin/menu
 
