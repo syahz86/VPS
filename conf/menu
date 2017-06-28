@@ -6,7 +6,7 @@ function create_user() {
 	usermod -e $expdate $uname
 
 	echo ""
-	echo "Terbaik Bos! Berjaya"
+	echo "ID $uname telah berjaya dibuat"
 }
 
 function renew_user() {
@@ -16,6 +16,9 @@ function renew_user() {
 
 function delete_user(){
 	userdel $uname
+	
+	echo ""
+	echo "ID $uname telah berjaya dibuang"
 }
 
 function expired_users(){
