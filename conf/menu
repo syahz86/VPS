@@ -25,9 +25,9 @@ function delete_user(){
 }
 
 function expired_users(){
-echo    "-------------------"
+echo    "---------"
 echo -e "\e[91mUSERNAME\e[0m"
-echo    "-------------------"
+echo    "---------"
 	cat /etc/shadow | cut -d: -f1,8 | sed /:$/d > /tmp/expirelist.txt
 	totalaccounts=`cat /tmp/expirelist.txt | wc -l`
 	for((i=1; i<=$totalaccounts; i++ )); do
@@ -44,9 +44,9 @@ echo    "-------------------"
 }
 
 function not_expired_users(){
-echo    "-------------------"
+echo    "---------"
 echo -e "\e[92mUSERNAME\e[0m"
-echo    "-------------------"
+echo    "---------"
         cat /etc/shadow | cut -d: -f1,8 | sed /:$/d > /tmp/expirelist.txt
         totalaccounts=`cat /tmp/expirelist.txt | wc -l`
         for((i=1; i<=$totalaccounts; i++ )); do
