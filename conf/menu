@@ -6,22 +6,28 @@ function create_user() {
 	usermod -e $expdate $uname
 
 	echo ""
-	echo "ID $uname telah berjaya dibuat"
+	echo -e "\e[92mID $uname telah berjaya dibuat\e[0m"
 }
 
 function renew_user() {
 	echo "New expiration date for $uname: $expdate...";
 	usermod -e $expdate $uname
+	
+	echo ""
+	echo -e "\e[92mID $uname telah berjaya diperbaharui\e[0m"	
 }
 
 function delete_user(){
 	userdel $uname
 	
 	echo ""
-	echo "ID $uname telah berjaya dibuang"
+	echo -e "\e[91mID $uname telah berjaya dibuang\e[0m"
 }
 
 function expired_users(){
+        echo "-------------------"
+        echo "\e[91mUSERNAME\e[0m"
+        echo "-------------------"
 	cat /etc/shadow | cut -d: -f1,8 | sed /:$/d > /tmp/expirelist.txt
 	totalaccounts=`cat /tmp/expirelist.txt | wc -l`
 	for((i=1; i<=$totalaccounts; i++ )); do
@@ -38,6 +44,9 @@ function expired_users(){
 }
 
 function not_expired_users(){
+    echo "-------------------"
+    echo "\e[92mUSERNAME\e[0m"
+    echo "-------------------"
     cat /etc/shadow | cut -d: -f1,8 | sed /:$/d > /tmp/expirelist.txt
     totalaccounts=`cat /tmp/expirelist.txt | wc -l`
     for((i=1; i<=$totalaccounts; i++ )); do
