@@ -147,10 +147,16 @@ chkconfig sshd on
 
 # install dropbear
 yum -y install dropbear
-echo "OPTIONS=\"-p 109 -p 110 -p 443\"" > /etc/sysconfig/dropbear
+echo "OPTIONS=\"-b /usr/bin/banner.txt -p 109 -p 110 -p 443\"" > /etc/sysconfig/dropbear
 echo "/bin/false" >> /etc/shells
-service dropbear restart
 chkconfig dropbear on
+service dropbear stop
+
+# install banner
+cd
+wget -O /usr/bin/banner.txt https://raw.githubusercontent.com/syahz86/VPN/master/conf/banner.txt
+chmod +x /usr/bin/bannermenu
+service dropbear restart
 
 # install vnstat gui
 cd /home/vps/public_html/
@@ -203,7 +209,7 @@ cp /root/customstatus /usr/bin/customstatus
 chmod +x customstatus
 
 # Install Dos Deflate
-apt-get install dnsutils dsniff -y
+apt-get -y install dnsutils dsniff
 wget https://github.com/jgmdev/ddos-deflate/archive/master.zip
 unzip master.zip
 cd ddos-deflate-master
