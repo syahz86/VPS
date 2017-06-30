@@ -5,7 +5,7 @@
 
 :phone:[JuiceSSH for Android](https://play.google.com/store/apps/details?id=com.sonelli.juicessh&hl=en)
 
-# Centos 6.8 64-bit Webmin
+# Centos 6.9 64-bit Webmin + EasyMenu
 ```
  wget https://raw.githubusercontent.com/syahz86/VPS/master/Centos-kvm.sh
 ```
@@ -13,6 +13,15 @@
 ```
  bash Centos-kvm.sh
 ```
+
+# Debian 7 64-bit Webmin + EasyMenu
+```
+ wget https://raw.githubusercontent.com/syahz86/VPS/master/Debian-kvm.sh
+ ```
+ - kemudian paste nie dan tunggu sehingga selesai
+```
+ bash Debian-kvm.sh
+ ```
 
 # Ubuntu 14 64-bit Unlimited Pritunl
 ```
@@ -31,15 +40,6 @@
 ```
  bash UnlimitedDebian8.sh
 ```
-
-# Debian 7 64-bit Webmin
-```
- wget https://raw.githubusercontent.com/syahz86/VPS/master/Debian-kvm.sh
- ```
- - kemudian paste nie dan tunggu sehingga selesai
-```
- bash Debian-kvm.sh
- ```
 
 # Disable MultiLogin SSH User Debian/Ubuntu
  ```
@@ -68,7 +68,7 @@
  bash speedtest.sh
  ```
 
-# Custom Debian 7 64-bit Webmin with Menu
+# Custom Debian 7 64-bit Webmin with EasyMenu (Multilogin User)
 ```
  wget https://raw.githubusercontent.com/syahz86/VPS/master/CustomDebian-kvm.sh
 ```
@@ -77,7 +77,7 @@
  bash CustomDebian-kvm.sh
 ```
 
-# Custom Centos 6 64-bit Webmin with Menu
+# Custom Centos 6.9 64-bit Webmin with EasyMenu (Multilogin User)
 ```
 wget https://raw.githubusercontent.com/syahz86/VPS/master/CustomCentos-kvm.sh
 ```
