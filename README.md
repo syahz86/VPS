@@ -68,7 +68,7 @@
  bash speedtest.sh
  ```
 
-# Custom Debian 7 64-bit Webmin with EasyMenu (Multilogin User)
+# Custom Debian 7 64-bit Webmin + EasyMenu (Multilogin User)
 ```
  wget https://raw.githubusercontent.com/syahz86/VPS/master/CustomDebian-kvm.sh
 ```
@@ -77,7 +77,7 @@
  bash CustomDebian-kvm.sh
 ```
 
-# Custom Centos 6.9 64-bit Webmin with EasyMenu (Multilogin User)
+# Custom Centos 6.9 64-bit Webmin + EasyMenu (Multilogin User)
 ```
 wget https://raw.githubusercontent.com/syahz86/VPS/master/CustomCentos-kvm.sh
 ```
