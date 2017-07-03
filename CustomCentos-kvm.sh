@@ -219,6 +219,7 @@ wget https://raw.githubusercontent.com/syahz86/Centos/master/test-speed && chmod
 wget https://raw.githubusercontent.com/syahz86/Centos/master/disable-user-expire && chmod +x disable-user-expire
 wget https://raw.githubusercontent.com/syahz86/Centos/master/user-del && chmod +x user-del
 wget https://raw.githubusercontent.com/syahz86/Centos/master/user-renew && chmod +x user-renew
+wget https://raw.githubusercontent.com/syahz86/Centos/master/booster && chmod +x booster
 cd
 
 #bonus block playstation
