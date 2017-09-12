@@ -8,8 +8,10 @@ echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6
 sed -i '$ i\echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6' /etc/rc.local
 
 # install wget and curl
-apt-get update
+apt-get -o Acquire::Check-Valid-Until=false update
 apt-get -y install wget curl
+apt-get update 
+apt-get -y upgrade
 
 # Change to Time GMT+8
 ln -fs /usr/share/zoneinfo/Asia/Kuala_Lumpur /etc/localtime
@@ -23,10 +25,6 @@ apt-get -y --purge remove samba*;
 apt-get -y --purge remove apache2*;
 apt-get -y --purge remove sendmail*;
 apt-get -y --purge remove bind9*;
-
-# update
-apt-get update 
-apt-get -y upgrade
 
 # install webserver
 apt-get -y install nginx php5-fpm php5-cli
@@ -148,10 +146,10 @@ service squid3 restart
 
 # install webmin
 cd
-wget "http://prdownloads.sourceforge.net/webadmin/webmin_1.820_all.deb"
-dpkg --install webmin_1.820_all.deb;
+wget "http://prdownloads.sourceforge.net/webadmin/webmin_1.850_all.deb"
+dpkg --install webmin_1.850_all.deb;
 apt-get -y -f install;
-rm /root/webmin_1.820_all.deb
+rm /root/webmin_1.850_all.deb
 sed -i 's/ssl=1/ssl=0/g' /etc/webmin/miniserv.conf
 service webmin restart
 service vnstat restart
@@ -209,42 +207,6 @@ iptables -A INPUT -m string --string "announce.php?passkey=" --algo kmp -j REJEC
 iptables -A INPUT -m string --string "find_node" --algo kmp -j REJECT
 iptables -A INPUT -m string --string "info_hash" --algo kmp -j REJECT
 iptables -A INPUT -m string --string "get_peers" --algo kmp -j REJECT
-iptables -A FORWARD -m string --algo bm --string "BitTorrent" -j REJECT
-iptables -A FORWARD -m string --algo bm --string "BitTorrent protocol" -j REJECT
-iptables -A FORWARD -m string --algo bm --string "peer_id=" -j REJECT
-iptables -A FORWARD -m string --algo bm --string ".torrent" -j REJECT
-iptables -A FORWARD -m string --algo bm --string "announce.php?passkey=" -j REJECT
-iptables -A FORWARD -m string --algo bm --string "torrent" -j REJECT
-iptables -A FORWARD -m string --algo bm --string "info_hash" -j REJECT
-iptables -A FORWARD -m string --algo bm --string "/default.ida?" -j REJECT
-iptables -A FORWARD -m string --algo bm --string ".exe?/c+dir" -j REJECT
-iptables -A FORWARD -m string --algo bm --string ".exe?/c_tftp" -j REJECT
-iptables -A FORWARD -m string --string "peer_id" --algo kmp -j REJECT
-iptables -A FORWARD -m string --string "BitTorrent" --algo kmp -j REJECT
-iptables -A FORWARD -m string --string "BitTorrent protocol" --algo kmp -j REJECT
-iptables -A FORWARD -m string --string "bittorrent-announce" --algo kmp -j REJECT
-iptables -A FORWARD -m string --string "announce.php?passkey=" --algo kmp -j REJECT
-iptables -A FORWARD -m string --string "find_node" --algo kmp -j REJECT
-iptables -A FORWARD -m string --string "info_hash" --algo kmp -j REJECT
-iptables -A FORWARD -m string --string "get_peers" --algo kmp -j REJECT
-iptables -A OUTPUT -m string --algo bm --string "BitTorrent" -j REJECT
-iptables -A OUTPUT -m string --algo bm --string "BitTorrent protocol" -j REJECT
-iptables -A OUTPUT -m string --algo bm --string "peer_id=" -j REJECT
-iptables -A OUTPUT -m string --algo bm --string ".torrent" -j REJECT
-iptables -A OUTPUT -m string --algo bm --string "announce.php?passkey=" -j REJECT
-iptables -A OUTPUT -m string --algo bm --string "torrent" -j REJECT
-iptables -A OUTPUT -m string --algo bm --string "info_hash" -j REJECT
-iptables -A OUTPUT -m string --algo bm --string "/default.ida?" -j REJECT
-iptables -A OUTPUT -m string --algo bm --string ".exe?/c+dir" -j REJECT
-iptables -A OUTPUT -m string --algo bm --string ".exe?/c_tftp" -j REJECT
-iptables -A OUTPUT -m string --string "peer_id" --algo kmp -j REJECT
-iptables -A OUTPUT -m string --string "BitTorrent" --algo kmp -j REJECT
-iptables -A OUTPUT -m string --string "BitTorrent protocol" --algo kmp -j REJECT
-iptables -A OUTPUT -m string --string "bittorrent-announce" --algo kmp -j REJECT
-iptables -A OUTPUT -m string --string "announce.php?passkey=" --algo kmp -j REJECT
-iptables -A OUTPUT -m string --string "find_node" --algo kmp -j REJECT
-iptables -A OUTPUT -m string --string "info_hash" --algo kmp -j REJECT
-iptables -A OUTPUT -m string --string "get_peers" --algo kmp -j REJECT
 iptables -A INPUT -p tcp --dport 25 -j REJECT   
 iptables -A FORWARD -p tcp --dport 25 -j REJECT 
 iptables -A OUTPUT -p tcp --dport 25 -j REJECT 
