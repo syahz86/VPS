@@ -85,14 +85,6 @@ echo "*/5 * * * * root /usr/sbin/vnstat.cron" >> /etc/cron.d/vnstat
 service vnstat restart
 chkconfig vnstat on
 
-# install screenfetch
-cd
-wget https://github.com/KittyKatt/screenFetch/raw/master/screenfetch-dev
-mv screenfetch-dev /usr/bin/screenfetch
-chmod +x /usr/bin/screenfetch
-echo "clear" >> .bash_profile
-echo "screenfetch" >> .bash_profile
-
 # install webserver
 cd
 wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/syahz86/VPS/master/conf/nginx.conf"
