@@ -46,14 +46,6 @@ vnstat -u -i eth0
 chown -R vnstat:vnstat /var/lib/vnstat
 service vnstat restart
 
-# install screenfetch
-cd
-wget https://github.com/KittyKatt/screenFetch/raw/master/screenfetch-dev
-mv screenfetch-dev /usr/bin/screenfetch
-chmod +x /usr/bin/screenfetch
-echo "clear" >> .profile
-echo "screenfetch" >> .profile
-
 # Install Web Server
 cd
 rm /etc/nginx/sites-enabled/default
